@@ -1,0 +1,222 @@
+/* =========================================================
+   ShellQuest · Layout: barra superior, grilla y diálogos
+   ========================================================= */
+
+.topbar {
+  height: var(--topbar-h);
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--border);
+  background: rgb(7 11 20 / 0.85);
+  backdrop-filter: blur(8px);
+}
+
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  min-width: 0;
+}
+
+.brand__mark {
+  font-size: 20px;
+  align-self: center;
+}
+
+.brand__name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 30px;
+  letter-spacing: 0.5px;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.brand__tag {
+  color: var(--text-muted);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.topbar__status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.pill {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  color: var(--gold);
+  background: var(--gold-soft);
+  white-space: nowrap;
+}
+
+.pill--host {
+  color: var(--teal);
+  background: var(--teal-soft);
+}
+
+.progress {
+  --progress: 0%;
+  width: 120px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+
+.progress > span {
+  display: block;
+  height: 100%;
+  width: var(--progress);
+  background: linear-gradient(90deg, var(--teal), var(--gold));
+  transition: width 0.6s ease;
+}
+
+.topbar__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.layout {
+  height: calc(100vh - var(--topbar-h));
+  height: calc(100dvh - var(--topbar-h));
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 400px;
+  gap: 18px;
+  padding: 18px;
+}
+
+/* ----- Diálogos ----- */
+.dialog {
+  max-width: min(520px, 92vw);
+  padding: 24px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow);
+}
+
+.dialog::backdrop {
+  background: rgb(2 4 9 / 0.7);
+  backdrop-filter: blur(3px);
+}
+
+.dialog p {
+  margin: 0 0 18px;
+}
+
+.dialog__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.dialog--victory {
+  max-width: min(680px, 94vw);
+  text-align: center;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 1px var(--gold-soft), 0 30px 90px -20px rgb(242 193 78 / 0.35);
+}
+
+.victory__title {
+  margin: 0 0 12px;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 44px;
+  color: var(--gold);
+}
+
+.victory__treasure {
+  margin: 0 auto 16px;
+  padding: 14px;
+  max-height: 46vh;
+  overflow: auto;
+  text-align: left;
+  font-size: 12.5px;
+  line-height: 1.35;
+  color: var(--gold);
+  background: var(--term-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.victory__stats {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin: 0 0 14px;
+  padding: 0;
+  list-style: none;
+  color: var(--text-muted);
+}
+
+.victory__stats strong {
+  color: var(--teal);
+  font-size: 1.2em;
+}
+
+.victory__next {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+/* ----- Responsive ----- */
+@media (max-width: 1100px) {
+  .brand__tag {
+    display: none;
+  }
+
+  .layout {
+    grid-template-columns: minmax(0, 1fr) 340px;
+  }
+}
+
+@media (max-width: 860px) {
+  .topbar {
+    height: auto;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px 14px;
+  }
+
+  .topbar__status {
+    margin-left: 0;
+  }
+
+  .progress {
+    display: none;
+  }
+
+  .layout {
+    height: auto;
+    grid-template-columns: 1fr;
+    padding: 12px;
+  }
+
+  .window {
+    height: 72vh;
+    height: 72dvh;
+  }
+}
+
+@media (max-width: 520px) {
+  .term,
+  .vim {
+    font-size: 12.5px;
+  }
+
+  .brand__name {
+    font-size: 26px;
+  }
+}

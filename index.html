@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShellQuest · El tesoro de la Capitana Root</title>
+  <meta name="description" content="Juego de navegador para aprender Bash, Vim y fundamentos de hacking ético en 20 niveles.">
+  <meta name="theme-color" content="#070b14">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Pirata+One&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/terminal.css">
+  <link rel="stylesheet" href="css/vim.css">
+  <link rel="stylesheet" href="css/panel.css">
+</head>
+<body>
+  <a class="skip-link" href="#terminal">Saltar a la terminal</a>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand__mark" aria-hidden="true">⚓</span>
+      <h1 class="brand__name">ShellQuest</h1>
+      <span class="brand__tag">El tesoro de la Capitana Root</span>
+    </div>
+    <div class="topbar__status">
+      <span class="pill" data-header-level>Nivel 1/20</span>
+      <span class="pill pill--host" data-header-host>recluta@base</span>
+      <div class="progress" data-progress role="progressbar" aria-label="Progreso total" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div>
+    </div>
+    <nav class="topbar__actions" aria-label="Acciones del juego">
+      <button class="btn btn--ghost" id="btn-help" type="button">help</button>
+      <button class="btn btn--ghost" id="btn-restart" type="button">Reiniciar nivel</button>
+      <button class="btn btn--danger" id="btn-reset" type="button">Borrar progreso</button>
+    </nav>
+  </header>
+
+  <main class="layout">
+    <section class="window" aria-label="Terminal">
+      <div class="window__bar">
+        <span class="window__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="window__title">bash — Archipiélago 10.0.0.0/24</span>
+      </div>
+      <div class="term" id="terminal" tabindex="-1"></div>
+    </section>
+
+    <aside class="panel" id="panel" aria-label="Misión">
+      <section class="card card--map">
+        <h2 class="card__label">Ruta al tesoro</h2>
+        <div class="map" data-map></div>
+      </section>
+
+      <section class="card card--level" data-level-card>
+        <p class="card__label" data-chapter></p>
+        <h2 class="level__title" data-title></h2>
+        <div class="level__story" data-story></div>
+
+        <h3 class="card__label">Objetivos</h3>
+        <ul class="objectives" data-objectives></ul>
+
+        <h3 class="card__label">Comandos de este nivel</h3>
+        <div class="chips" data-commands></div>
+
+        <ol class="hints" data-hints></ol>
+        <button class="btn btn--hint" type="button" data-hint-button>💡 Mostrar pista</button>
+      </section>
+
+      <details class="card cheats">
+        <summary>Chuleta de Vim</summary>
+        <dl class="cheats__grid">
+          <dt>i / a</dt><dd>insertar antes / después del cursor</dd>
+          <dt>Esc</dt><dd>volver a modo normal</dd>
+          <dt>:w · :q · :wq</dt><dd>guardar · salir · ambas</dd>
+          <dt>:q!</dt><dd>salir sin guardar</dd>
+          <dt>h j k l</dt><dd>← ↓ ↑ →</dd>
+          <dt>w · b</dt><dd>palabra siguiente · anterior</dd>
+          <dt>0 · $</dt><dd>inicio · fin de línea</dd>
+          <dt>gg · G · :N</dt><dd>primera · última · línea N</dd>
+          <dt>x · dd · dw</dt><dd>borrar carácter · línea · palabra</dd>
+          <dt>yy · p</dt><dd>copiar línea · pegar</dd>
+          <dt>o · O</dt><dd>línea nueva abajo · arriba</dd>
+          <dt>u · Ctrl+r</dt><dd>deshacer · rehacer</dd>
+          <dt>/texto · n</dt><dd>buscar · siguiente</dd>
+          <dt>:%s/a/b/g</dt><dd>reemplazar todo</dd>
+          <dt>:set nu</dt><dd>números de línea</dd>
+        </dl>
+      </details>
+
+      <details class="card cheats">
+        <summary>Chuleta de Bash</summary>
+        <dl class="cheats__grid">
+          <dt>cmd &gt; f</dt><dd>salida a archivo (sobrescribe)</dd>
+          <dt>cmd &gt;&gt; f</dt><dd>agrega al final</dd>
+          <dt>cmd &lt; f</dt><dd>archivo como entrada</dd>
+          <dt>a | b</dt><dd>la salida de a entra en b</dd>
+          <dt>a &amp;&amp; b</dt><dd>b solo si a funcionó</dd>
+          <dt>2&gt;/dev/null</dt><dd>ocultar errores</dd>
+          <dt>*  ?</dt><dd>comodines de nombres</dd>
+          <dt>~  .  ..</dt><dd>home · aquí · arriba</dd>
+          <dt>Tab · ↑ ↓</dt><dd>autocompletar · historial</dd>
+          <dt>Ctrl+L · Ctrl+C</dt><dd>limpiar · cancelar</dd>
+        </dl>
+      </details>
+
+      <p class="panel__footer">Simulador educativo. Practicá técnicas ofensivas <strong>solo</strong> en entornos propios o con autorización.</p>
+    </aside>
+  </main>
+
+  <dialog class="dialog" id="confirm">
+    <form method="dialog">
+      <p data-message></p>
+      <div class="dialog__actions">
+        <button class="btn btn--ghost" value="cancel">Cancelar</button>
+        <button class="btn btn--primary" value="ok">Confirmar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="dialog dialog--victory" id="victory">
+    <form method="dialog">
+      <h2 class="victory__title">¡Encontraste el tesoro!</h2>
+      <pre class="victory__treasure" data-treasure></pre>
+      <ul class="victory__stats" data-stats></ul>
+      <p class="victory__next">Próximos pasos reales: <strong>OverTheWire Bandit</strong>, <code>vimtutor</code> y las máquinas iniciales de <strong>Hack The Box</strong>.</p>
+      <div class="dialog__actions">
+        <button class="btn btn--ghost" value="close">Seguir explorando</button>
+        <button class="btn btn--primary" type="button" data-replay>Jugar de nuevo</button>
+      </div>
+    </form>
+  </dialog>
+
+  <noscript><p class="noscript">ShellQuest necesita JavaScript para funcionar.</p></noscript>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

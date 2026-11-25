@@ -1,0 +1,17 @@
+{
+  "name": "shellquest",
+  "version": "1.0.0",
+  "description": "Juego de navegador para aprender Bash, Vim y fundamentos de hacking ético: una búsqueda del tesoro en 20 niveles.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "npx --yes http-server . -p 8080 -c-1 -o",
+    "test": "node --test \"tests/**/*.test.js\"",
+    "docs:solutions": "node scripts/generate-solutions.js"
+  },
+  "keywords": ["bash", "vim", "linux", "terminal", "hacking", "ctf", "game", "education", "vanilla-js"],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,283 @@
+/* =========================================================
+   ShellQuest · Panel lateral (misión)
+   ========================================================= */
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+
+.card {
+  padding: 16px 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, var(--surface), var(--bg-2));
+}
+
+.card__label {
+  margin: 0 0 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+/* ----- Mapa de progreso ----- */
+.map {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  justify-items: center;
+}
+
+.map__node {
+  position: relative;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px dashed var(--border-strong);
+  background: var(--bg);
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  cursor: pointer;
+  transition: transform 0.15s, border-color 0.15s;
+}
+
+.map__node:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.map__node:hover:not(:disabled) {
+  transform: scale(1.08);
+  border-color: var(--gold);
+}
+
+.map__node.is-done {
+  border: 1px solid var(--teal);
+  background: var(--teal-soft);
+  color: var(--teal);
+}
+
+.map__node.is-current {
+  border: 2px solid var(--gold);
+  background: var(--gold-soft);
+  color: var(--gold);
+  font-weight: 700;
+  box-shadow: 0 0 0 4px rgb(242 193 78 / 0.12);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  50% { box-shadow: 0 0 0 8px rgb(242 193 78 / 0.03); }
+}
+
+.map__chest {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  font-size: 20px;
+  filter: grayscale(0.7);
+}
+
+.map__chest.is-open {
+  filter: none;
+  animation: pulse 2s ease-in-out infinite;
+  border-radius: 50%;
+}
+
+/* ----- Nivel ----- */
+.card--level.is-entering {
+  animation: card-in 0.45s ease;
+}
+
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+.level__title {
+  margin: 0 0 10px;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 1.1;
+  color: var(--gold);
+}
+
+.level__story {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.level__story p {
+  margin: 0 0 10px;
+}
+
+.level__story b {
+  color: var(--text);
+}
+
+.objectives {
+  margin: 0 0 16px;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 8px;
+}
+
+.objective {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 10px;
+  align-items: start;
+  padding: 9px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  font-size: 14px;
+  transition: border-color 0.3s, background 0.3s;
+}
+
+.objective__check {
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  border: 1.5px solid var(--border-strong);
+  border-radius: 6px;
+  font-size: 12px;
+  color: #04140f;
+}
+
+.objective.is-done {
+  border-color: rgb(94 234 212 / 0.35);
+  background: var(--teal-soft);
+}
+
+.objective.is-done .objective__check {
+  border-color: var(--teal);
+  background: var(--teal);
+  animation: check-in 0.35s ease;
+}
+
+@keyframes check-in {
+  from { transform: scale(0.5); }
+  to { transform: none; }
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.chip {
+  padding: 3px 10px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background: var(--surface-2);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--teal);
+  cursor: pointer;
+}
+
+.chip:hover {
+  border-color: var(--teal);
+}
+
+.chip--static {
+  cursor: default;
+  color: var(--text-muted);
+}
+
+.hints {
+  margin: 0 0 10px;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 8px;
+}
+
+.hint {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 10px;
+  padding: 9px 10px;
+  border-left: 3px solid var(--gold);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: var(--gold-soft);
+  font-size: 13.5px;
+  animation: card-in 0.3s ease;
+}
+
+.hint code {
+  white-space: normal;
+}
+
+.hint__n {
+  font-family: var(--font-mono);
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.btn--hint {
+  width: 100%;
+  justify-content: center;
+  border-style: dashed;
+}
+
+/* ----- Chuletas ----- */
+.cheats summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--text);
+  list-style: none;
+}
+
+.cheats summary::before {
+  content: '▸ ';
+  color: var(--gold);
+}
+
+.cheats[open] summary::before {
+  content: '▾ ';
+}
+
+.cheats__grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 14px;
+  margin: 12px 0 0;
+  font-size: 13px;
+}
+
+.cheats__grid dt {
+  font-family: var(--font-mono);
+  color: var(--teal);
+  white-space: nowrap;
+}
+
+.cheats__grid dd {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.panel__footer {
+  margin: 0;
+  padding: 0 4px 8px;
+  font-size: 12px;
+  color: var(--text-faint);
+}
